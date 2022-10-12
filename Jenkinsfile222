@@ -1,0 +1,26 @@
+node(){
+    stage("checkout from SCM"){
+        
+    git credentialsId: 'git-integration', url: 'https://github.com/maheesh59/KCMavenWebProject.git'
+    }
+    stage("Maven build"){
+        def mvnHome = tool name: 'M2_HOME', type: 'maven'
+        def mvnCMD = "${mvnHome}/bin/mvn"
+        sh "${mvnCMD} clean package"
+    }
+    stage("Build docker image"){
+     sh "docker build -t maheesh123/dockerintegration:1.0 ."
+  }    
+       stage("Push image"){
+     withCredentials([string(credentialsId: 'docker-pwd', variable: 'DOCKERHUBPWD')]) {
+          sh "docker login -u maheesh123 -p ${DOCKERHUBPWD}"
+    }
+    sh "docker push maheesh123/dockerintegration:1.0"
+  }
+      stage("Create Container"){
+    def runContainer = "docker run -it -d --name devops -p 8080:8080 maheesh123/dockerintegration:1.0" 
+    sshagent(['dockercrediantels']) {
+        sh "ssh -o StrictHostKeychecking=no ubuntu@172.31.32.196 ${runContainer}"
+       }
+    }
+}
