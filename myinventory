@@ -2,4 +2,4 @@
 localhost ansible_user=ubuntu
 
 [External]
-172.31.32.244 ansible_user=ubuntu
+172.31.32.196 ansible_user=ubuntu
