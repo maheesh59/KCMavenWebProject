@@ -2,8 +2,11 @@
 - hosts: webservers
   become: True
   tasks:
-    - name: Deploy war to tomcat
-      copy:
-        src: /var/lib/jenkins/workspace/ansible/target/maven-web-project-1.0-SNAPSHOT.war
-        dest: /opt/apache-tomcat-8.5.57/webapps
+    - name: start the container
+      docker_container:
+        name: dockerintegration:1.0
+        image: maheesh123/dockerintegration:1.0
+        state: started
+        published_ports:
+          - 0.0.0.0:8080:8080
         
