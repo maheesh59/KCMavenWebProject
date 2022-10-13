@@ -1,5 +1,2 @@
 [webservers]
-localhost ansible_user=ubuntu
-
-[External]
 172.31.32.196 ansible_user=ubuntu
