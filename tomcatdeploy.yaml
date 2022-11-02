@@ -12,8 +12,8 @@
        state: present
     - name: start the container
       docker_container:
-        name: dockerintegration:1.0
-        image:  maheesh123/dockerintegration:1.0
+        name: dockerintegrationdm:1.0
+        image:  maheesh123/dockerintegrationdm:1.0
         state: started
         published_ports:
           - 0.0.0.0:8080:8080
