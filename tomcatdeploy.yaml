@@ -2,14 +2,6 @@
 - hosts: webservers
   become: True
   tasks:
-    - name: install python pip
-      apt:
-       name: pyton-pip
-       state: present
-    - name: install docker-py pyton module
-      pip: 
-       name: docker-py
-       state: present
     - name: start the container
       docker_container:
         name: dockerintegrationdm:1.0
